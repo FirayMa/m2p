@@ -1,0 +1,64 @@
+{% extends "admin/base_site.html" %}
+{% block title %}新建账单{% endblock %}
+{% block extrahead %}{{ block.super }}
+{% load staticfiles %}
+<script type="text/javascript" language="javascript" src="{% static 'bill/js/action-jquery.js'%}"></script>
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}<link rel="stylesheet" type="text/css" href="{% static "bill/css/new.css" %}" />{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+{% if page = 'change' and user != bill.user %}
+<table>
+                       <tr>
+                           <td> <label class="err_label" >Permission denied! You cannot {{page}} this bill, do not do some stupid thing!</label>
+                           </td>
+                       </tr>
+                    </table>
+{%else%}
+<form id="bill_form" action="" method="POST">
+    {% csrf_token %}
+        <table>
+           <tr>
+               <td> 
+                   类型：<input type="text" id="id_type" name="type" value="{{bill.sort}}" /> 
+               </td>
+               </tr>
+               <tr>
+               <td> 
+                    {% if bill.flag%}
+                   <input name="flag" type="radio" value="1" checked="checked" />收入
+                   <input name="flag" type="radio" value="0" />支出 
+                     {% else %}
+                     <input name="flag" type="radio" value="1" />收入
+                    <input name="flag" type="radio" value="0" checked="checked" />支出 
+                     {% endif %}
+               </td>
+               </tr>
+               <tr>
+               <td> 
+                   金额：<input type="text" id="id_money" name="money" value="{{bill.money}}" /> 
+               </td>
+               </tr>
+                <tr>
+               <td> 
+                   说明：<input type="text" id="id_item" name="item" value="{{bill.item}}" /> 
+               </td>
+               </tr>
+                <tr>
+               <td> 
+                   备注：<input type="text" id="id_remark" name="remark" value="{{bill.remark}}" /> 
+               </td>
+               </tr>
+               <tr>
+               <td >
+                    <input type="button" id="id_submit" value="保存" /> 
+               </td>
+           </tr>
+        </table>
+        <input type="Hidden" id="bill_id" name="bill_id" value="{{bill.id}}"/> 
+        <input type="Hidden" id="page_id" name="page" value="{{page}}"/> 
+</form>
+{% endif %}
+{% endblock %}

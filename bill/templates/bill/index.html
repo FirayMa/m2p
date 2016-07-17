@@ -1,0 +1,67 @@
+{% extends "admin/base_site.html" %}
+{% block title %}我的账单{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" language="javascript" src="/static/js/datatable/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/datatable/dataTables.jqueryui.js"></script>
+<script type="text/javascript" language="javascript" src="/static/bill/js/jquery-table.js"></script>
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ 
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/jquery.dataTables.css" />
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/dataTables.jqueryui.css" />
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/dataTables.extend.css" />
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/bill/css/index.css" />
+{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="problem_search_form" action="" method="get">
+
+<table width="100%" class="display" id="data-table-list" cellspacing="0" >
+<thead>
+	<tr>
+		<th>No.</th>
+		<th >类型</th>
+		<th>说明</th>
+		<th>金额</th>
+		<th>日期</th>
+		<th>备注</th>
+		 
+	</tr>
+</thead>
+<tfoot>
+	<tr>
+		<th>No.</th>
+		<th >类型</th>
+		<th>说明</th>
+		<th>金额</th>
+		<th>日期</th>
+		<th>备注</th>
+		 
+	</tr>
+</tfoot>
+<tbody>
+		{% if bill_list %}
+			{% csrf_token %}
+			{% load tz %}
+			{% for bill in bill_list %}
+		<tr >
+     		<td ><label for="date" id="billid" class="billid" name="billid" >{{ bill.id }}</lable></td> 
+    		<td>
+    			<label for="date" name="title" ><a method="get" href="{% url 'bill:change' bill.id %}">{{ bill.sort }}</a></lable>
+    			</td>
+    		<td >{{ bill.item }}</td>
+    		<td >{%if bill.flag %}+{%else%}-{%endif%}{{ bill.money }}</td>
+    		<td ><label for="date">{{ bill.date  |date:" Y-m-d "}}</lable></td>
+    		<td >{{ bill.remark }}</td>
+    		
+		</tr>
+		{% endfor %}
+		{% else %}
+    		<p>No bills are available.</p>
+		{% endif %}
+		</tbody>
+</table>
+</form>
+{% endblock %}

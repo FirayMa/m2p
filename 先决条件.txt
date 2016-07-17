@@ -1,0 +1,2 @@
+1安装requests
+2安装pillow为了支持ImageField pip install pillow

@@ -1,0 +1,45 @@
+{% extends "admin/m_base_site.html" %}
+ {% block title %}板块列表{% endblock %} 
+{% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script>  
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/m_hostpage.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="{% static "blocks/css/m_forum_block.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/m_brand.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/menu/m_styles.css" %}" />
+{% endblock %}
+ {% block keywords%}心事 每日一句 推荐{%endblock%}
+  {% block description%} 你是不是也想要一个只属于自己的小屋，漂亮温馨就..{%endblock%}
+ {% block bodyclass %}{{ block.super }} 
+{% endblock %}
+ {% block headertitle %}   
+ {% endblock %}  
+{% block content %}
+ 
+<div class="group_list"> 
+ {% if perm %}
+    {% if block_ls %}
+        {% for block in block_ls %}
+        <a href="{% url 'blocks:changeblock'   block.id%}"> 
+        <p  class="blockname" >{{block.title}}<br/><label class="blacktheme">主题{{block.num}}</label></p>
+        </a> 
+        {% endfor %}
+     
+    
+    {% endif%}
+<a href="{% url 'blocks:newblock' %}"> 
+        <p  class="blockname  blocknew" >点击新建<br/><label class="blacktheme">+</label></p>
+    </a> 
+{% else %}
+<div>
+  <label class="errornote" >你没权限做这件事情。</label>
+</div>
+ {% endif%}
+   </div> 
+ {% endblock %}
+ 
+ {% block footer_script %}{{ block.super}} 
+ {% endblock %} 

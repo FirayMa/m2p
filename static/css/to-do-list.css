@@ -1,0 +1,19 @@
+body{
+  width:100%;
+  margin:0 auto;
+}
+
+div:first-child{
+  color:white;
+  margin-right: 1%;
+  width:39%;
+}
+
+div:nth-child(2n){
+  color:white;
+  width:59%;
+}
+
+div{
+  float:left;
+}

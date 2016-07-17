@@ -1,0 +1,94 @@
+{% extends "admin/m_base_site.html" %}
+ {% block title %}{% if kb_list %} [{{kb_list.0.block.title}}]{% endif %} | 所有帖子列表{% endblock %} 
+{% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script>  
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }} 
+<link rel="stylesheet" type="text/css" href="{% static "css/m_brand.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "kb/css/m_list.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "kb/css/m_sort.css" %}" />
+{% endblock %}
+ {% block keywords%}心事 每日一句 推荐{%endblock%}
+  {% block description%} 你是不是也想要一个只属于自己的小屋，漂亮温馨就..{%endblock%}
+ {% block bodyclass %}{{ block.super }} 
+{% endblock %}
+ {% block headertitle %}   
+ {% endblock %}  
+{% block content %} 
+{% include "kb/m_sort.html" %}
+<div class="main_link_container">
+    {% if  manage_perm %}
+    {% if kb_list %}
+    {% load tz %}
+{% for kb in kb_list %} 
+    <div class = "main_link_container_a">
+        <ul> <li class="vmlog_date"> {{kb.author.get_full_name}}|<label class="kbdate">{{kb.date  | date:" Y-m-d H:i:s"}}   </label> 
+            <a class="block_in_all_list" href="{% url 'kb:changekb'   kb.id %}"> [修改] </a>
+            {% if kb.type == 1 %}
+         <label class="active-kb">  [活动帖] </label>
+         {% endif %}
+         {% if kb.type == 2 %}
+         <label class="active-kb">  [新品预约] </label>
+         {% endif %}
+         {% if kb.type == 3 %}
+         <label class="active-kb">  [仓库福利] </label>
+         {% endif %} 
+            <!--<a class="block_in_all_list" href="{% url 'kb:kb_list'   kb.block.id %}"> [{{kb.block.title}}] </a>--></li>
+         </ul> 
+        <a href="{% url 'kb:kb_detail' kb.id %}">  
+        <label class="main_link_container_label"> {{kb.title}}</label>
+        <i class="fa fa-newspaper-o fa-list"> 阅读:{{kb.count_read}}</i>
+        <i class="fa  fa-thumbs-up fa-list"> 喜欢:{{kb.count_good}}</i>
+        <i class="fa fa-comment-o fa-list"> 评论:{{kb.count_reply}}</i>
+        </a>
+        <a href="{% url 'kb:delkb' kb.id %}">  
+        <i class="fa fa-recycle fa-list"> 删除</i>
+        </a>
+        {% if kb.is_essence == 1 %}
+        <a href="{% url 'kb:cancel_best_kb' kb.id %}">  
+        <i class="fa fa-diamond fa-diamond-selected cancel-fa-diamond fa-list"><lable class="lb_fa-diamond"> 取消精华</lable></i>
+        </a>
+        {% else %}
+        <a href="{% url 'kb:best_kb' kb.id %}">  
+        <i class="fa fa-diamond  set-fa-diamond fa-list"><lable class="lb_fa-diamond"> 设为精华</lable></i>
+        </a>
+        {% endif %}
+        
+        
+        <a href="{% url 'kb:recommend_to_block' kb.id %}">  
+        <i class="fa fa-share  set-to-block-slice fa-list"><lable class="lb_fa-diamond"> 推荐至板块</lable></i>
+        </a>
+        <a href="{% url 'kb:recommend_to_homepage_slice' kb.id %}">  
+        <i class="fa fa-share  set-to-homepage-slice fa-list"><lable class="lb_fa-diamond"> 推荐至首页</lable></i>
+        </a> 
+        <a class="list_set_top" href="{% url 'kb:set_kb_top_pic' kb.id %}"> 设置顶图 </a>
+        <hr>
+    </div>
+     
+{% endfor %}
+{% else %}
+<div class = "main_link_container_a" >
+     <ul> <li class="vmlog_date">  </li>
+         </ul> 
+        <label class="main_link_container_label main_link_container_label_none"> 还没有帖子...</label>
+       
+    </div>
+     <hr>
+{% endif %}
+{% else %}
+ 
+        <label class="errornote"> 没有权限...</label>
+    
+{% endif %}
+</div>
+ {% endblock %}
+ 
+ {% block custom_footer_user_li_selected %}custom_footer_user_li_selected{% endblock %}
+ {% block custom_footer_user_div_selected %}custom_footer_user_div_selected{% endblock %}
+ 
+ {% block footer_script %}{{ block.super}}
+ <script src="/static/kb/js/list.js"></script> 
+ <script src="/static/kb/js/m_kb_sort.js"></script>  
+ {% endblock %} 

@@ -1,0 +1,27 @@
+.detail {
+   height: auto;
+   overflow: hidden;
+}
+.left {
+    float: left; /* not needed, just for clarification */
+    
+    /* the next props are meant to keep this block independent from the other floated one */
+    width: 35%;
+    overflow: hidden;
+}    
+.right {
+    width: 65%;
+    float: right;
+	text-align:left;
+}
+
+.div_readme 
+{
+    background: #FFEBCD;
+    padding: 45px;
+	width: 70%;
+    -moz-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    -webkit-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+}
+

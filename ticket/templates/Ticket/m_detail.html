@@ -1,0 +1,45 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}{{ page }} Fix| {{ site_title|default:_('L2 tools management') }}{% endblock %}
+{% block extrahead %}{{ block.super }}
+
+{{ media }}
+{% endblock %}
+{% block extrastyle %} {{ block.super }}
+ {% endblock %}
+
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<div class="detail">
+<table class="tb_detail" >
+		{% if ticket %}
+		 <tr>
+            <td>
+                <label class="label-detail">Ticket No.: </label><label>{{ticket.id}}</label>
+            </td>
+        </tr>
+		<tr>
+			<td>
+			       <label class="label-detail" >Ticket Title: </label><label>{{ticket.title}}</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+				<label class="label-detail" >Creator: </label><label>{{ticket.creator.get_full_name }}</label>
+				</td>
+		</tr>
+		<tr>
+			<td>
+				<label class="label-detail" >  Create Date: </label><label>{{ticket.createDate_date}}</label>
+			</td>
+		</tr>
+		<tr>
+			<td>
+			       <label class="label-detail" >Comments: </label><pre>{{ticket.comments}}</pre>
+	    </td>
+		</tr>
+		</table>
+		</div>
+		{% endif %}
+{% endblock %}

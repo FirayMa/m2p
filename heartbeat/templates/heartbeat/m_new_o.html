@@ -1,0 +1,33 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}{{ page }} 此时你在想什么... | {{ site_title|default:_(' ') }}{% endblock %}
+{% block extrahead %}{{ block.super }}
+{% load staticfiles %}
+<script type="text/javascript" language="javascript" src="{% static 'heartbeat/js/action-jquery.js'%}"></script>
+<script>
+    function textAreaAdjust(o) {
+        o.style.height = "1px";
+        o.style.height = (25 + o.scrollHeight) + "px";
+    }
+</script>
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_heartbeat.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_new_c.css" />
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+ 
+{% block content %}
+
+<form  action="" method="POST">
+  
+    {% csrf_token %}
+        
+                <div class="main">
+                <p class="circle"></p>
+                <textarea rows="5" cols="75" id="idwords" name="words" onkeyup="textAreaAdjust(this)" class="paper" value=""> </textarea>
+               
+                    <input type="submit" id="id_submit" class="save" value="保存" /> 
+       </div>
+</form>
+{% endblock %}

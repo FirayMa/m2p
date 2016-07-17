@@ -1,0 +1,32 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}上传个人头像{% endblock %}
+ {% load admin_static %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript"  src="/static/admin/js/upload_portrait.js"></script> 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script> 
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ <link rel="stylesheet" href="/static/admin/css/m_change_portrait.css"/>
+{% endblock %} 
+
+{% block content %}
+<div class="background_div"> 
+</div>
+ 
+{% endblock %}
+
+
+{% block custom_footer_menu %}
+
+<script>  
+$(document).ready(function() {
+      $('.background_div').setBackgroundImg('url(/static/img/IMG_0926.JPG)'); 
+       }); 
+</script>
+{{block.super}} 
+ 
+ 
+ {% endblock %}
+
+{% block footer %}{% endblock %}

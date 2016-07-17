@@ -1,0 +1,91 @@
+﻿{% extends "admin/base.html" %}
+{% block title %}{{ title }} | {{ site_title|default:_('') }}{% endblock %}
+{% block extrahead %}{{block.super}}
+{% endblock %}
+{% block branding %}
+<a href="{% url 'user:portrait' %}"><div class="portrait" id="id_user_portrait"></div></a>
+{% endblock %}
+
+{% block nav-global %}
+<nav>
+<div class="wrapper">
+      <ul id="menu" class="clearfix">
+        <li class="li_header"><a href="/">主页</a></li>
+        
+        <li class="li_header"><a href="#">heartbeat</a>
+          <ul>
+            <li><a href="{% url 'heartbeat:index' %}">查看心情</a></li>
+            <li><a href="{% url 'heartbeat:new' %}">写点什么</a></li>
+          </ul>
+        </li>
+        <li class="li_header"><a href="#">账单</a>
+          <ul>
+            <li><a href="/bill/new">新建账单</a></li>
+            <li><a href="/bill">查看账单</a></li>
+          </ul>
+        </li>
+        <li class="li_header"><a href="#">最后一封信</a>
+          <ul>
+            <li><a href="{% url 'mailer:new_lastinfo' %}">写信</a></li>
+            <li><a href="{% url 'mailer:index_lastinfo' %}">待发信件</a></li>
+            <li><a href="{% url 'mailer:new_tofuture' %}">写未来的信</a></li>
+            <li><a href="{% url 'mailer:index_tofuture' %}">未来的信草稿箱</a></li>
+          </ul>
+        </li>
+         <li class="li_header"><a href="#">图片</a>
+          <ul>
+            <li><a href="{% url 'pic:index' %}">示例图片</a></li>
+             
+          </ul>
+        </li>
+        <li class="li_header"><a href="#"><i class="fa fa-cog fa-1x"></i> &nbsp;设置</a>
+          <ul>   
+            <li><a href="{% url 'user:portrait' %}">头像</a></li>
+            <li><a href="{% url 'kb:newkb' %}">婚礼</a></li>
+            <li><a href="{% url 'user:list_users' %}">family<i class="fa fa-users fa-1x"></i></a></li>
+             <li><a href="{% url 'logout' %}">退出登录&nbsp;&nbsp;&nbsp;<i class="fa fa-power-off fa-1x"></i></a></li>
+          </ul>
+        </li>
+        <li class="li_header"><a href="#"><i class="fa fa-cog fa-1x"></i>我的应用</a>
+          <ul>    
+            <li><a href="{% url 'kb:kb_list' 1  %}">千言墙</a></li> 
+             <li><a href="{% url 'kb:kb_list' 0  %}">婚纱主页</a></li> 
+          </ul>
+        </li>
+        <li class="li_header"><a href="#">About/Help</a>
+            <ul>
+                <li><a href="/ticket/openTicket/">Open Ticket</a></li>
+                <li><a href="/ticket/">View Ticket</a></li>
+                <li><a href="{% url 'base:contact_us' %}">Contact Us</a></li>
+              </ul>
+        </li>
+         {% if user.is_superuser %}
+          <li class="li_header"><a href="#">系统管理</a>
+          <ul>
+             
+            <li><a href="{% url 'user:admin_list_users' %}">用户管理<i class="fa fa-users fa-1x"></i></a></li>
+            <li><a href="{% url 'user:grouplist' %}">组列表</i></a></li>
+            <li><a href="{% url 'user:newgroup' %}">新建组</i></a></li> 
+              </li>
+          </ul>
+              </li>
+          {% endif %}
+      </ul>
+    </div>
+</nav>
+
+{% endblock %}
+ {% block footer_script %}{{block.super}}
+<script>
+    $(document).ready(function() {
+ {% if request.user.head_portrait and request.user%}
+        $('#id_user_portrait').css("background-image", "url({{request.user.head_portrait }})");
+        {%else%}
+        $('#id_user_portrait').css("background-image", "url('/static/img/dog.jpg')");
+        {%endif%}
+        
+        var innerHeight = window.innerHeight;
+    $('#content').css('min-height', innerHeight);
+    });
+</script>
+ {% endblock %}

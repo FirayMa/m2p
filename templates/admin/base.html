@@ -1,0 +1,134 @@
+{% load admin_static %}{% load firstof from future %}<!DOCTYPE html>
+<html lang="{{ LANGUAGE_CODE|default:"en-us" }}" {% if LANGUAGE_BIDI %}dir="rtl"{% endif %}>
+<head>
+<title>map2family|{% block title %}{% endblock %}</title>
+<link rel="stylesheet" type="text/css" href="{% block stylesheet %}{% static "admin/css/base.css" %}{% endblock %}" />
+{% block extrastyle %}
+<link rel="shortcut icon" href="/static/img/change.png">
+<link rel="icon" href="/static/img/change.png">
+<link rel="stylesheet" type="text/css" media="screen" href="/static/js/jquery.message.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/js/ui/jquery-ui.css" />
+<link rel="stylesheet" href="/static/css/font-awesome-4.3.0/css/font-awesome.min.css"/> 
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/base.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/menu/styles.css" />
+{% endblock %}
+{% block blockbots %}<meta name="robots" content="all" />
+<meta http-equiv="X-UA-Compatible" content="IE=Edge"/>
+<meta name="baidu-site-verification" content="wqasHCSNoc" />
+<meta name="keywords" content="map2family {% block keywords%}{%endblock%}" />
+<meta name="description" content="map2family是一家只传递正能量的网站，也是您在网上的一个私人空间，而且map2family一直觉得互联网不仅仅应该在朋友之间，更应该让亲人一起参与进来共同构建一个属于自己的family map. {% block description%} {%endblock%}" />
+
+{% endblock %}
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+<meta property="qc:admins" content="4250250767651026151416375" />
+<meta charset="utf-8"/>
+<!--[if lte IE 7]><link rel="stylesheet" type="text/css" href="{% block stylesheet_ie %}{% static "admin/css/ie.css" %}{% endblock %}" /><![endif]-->
+{% if LANGUAGE_BIDI %}<link rel="stylesheet" type="text/css" href="{% block stylesheet_rtl %}{% static "admin/css/rtl.css" %}{% endblock %}" />{% endif %}
+<script type="text/javascript">window.__admin_media_prefix__ = "{% filter escapejs %}{% static "admin/" %}{% endfilter %}";</script>
+<script type="text/javascript">window.__admin_utc_offset__ = "{% filter escapejs %}{% now "Z" %}{% endfilter %}";</script>
+{% block extrahead %}
+<script type="text/javascript"  src="http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js" charset="utf-8" ></script>
+
+
+<script type="text/javascript">
+    $(function(){
+        $('a[href="#"]').on('click', function(e){
+            e.preventDefault();
+        });
+  
+        $('#menu > li').on('mouseover', function(e){
+            $(this).find("ul:first").show();
+            $(this).find('> a').addClass('active');
+        }).on('mouseout', function(e){
+            $(this).find("ul:first").hide();
+            $(this).find('> a').removeClass('active');
+        });
+  
+        $('#menu li li').on('mouseover',function(e){
+            if($(this).has('ul').length) {
+                $(this).parent().addClass('expanded');
+            }
+            $('ul:first',this).parent().find('> a').addClass('active');
+            $('ul:first',this).show();
+        }).on('mouseout',function(e){
+            $(this).parent().removeClass('expanded');
+            $('ul:first',this).parent().find('> a').removeClass('active');
+            $('ul:first', this).hide();
+        });
+    });
+</script>
+{% endblock %}
+</head>
+{% load i18n %}
+
+<body class="{% if is_popup %}popup {% endif %}{% block bodyclass %}{% endblock %}">
+ {% block Container %}
+<!-- Container -->
+<div id="container">
+    {% if not is_popup %}
+    <!-- Header -->
+    <div id="header" class="header">
+        <div id="branding">
+        {% block branding %}{% endblock %}
+        </div>
+        {% if user.is_active and user.is_staff %}
+        <div id="user-tools">  {% block welcome-msg %}  {% trans '这里是Map2family欢迎您,' %}  <strong>{% firstof user.get_short_name user.get_username %}</strong>. {% endblock %} {% block userlinks %}{% endblock %}
+        </div>
+        {% else %}
+        <div id="user-tools">
+            {% block unlogin %}
+                {% trans '您好，请' %}
+                <a href="{% url 'base:user_register' %}">{% trans '注册' %}</a> 或者
+                <a href="{% url 'login' %}?next={{ request.path  }}">{% trans '登录' %}</a>
+            {% endblock %}
+        </div>
+        {% endif %}
+        
+        {% block nav-global %}{% endblock %}
+    </div>
+    <!-- END Header -->
+    {% block breadcrumbs %}
+    <div class="breadcrumbs">
+    {% if title %} &rsaquo; {{ title }}{% endif %}
+ 
+    </div>
+    {% endblock %}
+    {% endif %}
+
+    {% block messages %}
+        {% if messages %}
+        <ul class="messagelist">{% for message in messages %}
+          <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message|capfirst }}</li>
+        {% endfor %}</ul>
+        {% endif %}
+    {% endblock messages %}
+{% endblock %}
+    <!-- Content -->
+    <div id="content" class="{% block coltype %}colM{% endblock %}">
+        {% block pretitle %}{% endblock %}
+        {% block content_title %}{% if title %}<h1>{{ title }}</h1>{% endif %}{% endblock %}
+        <input type="hidden" id="is_authenticated" value="{{request.user.is_authenticated}}"/>
+        {% block content %}
+        
+        {% block object-tools %}{% endblock %}
+        {{ content }}
+        {% endblock %}
+        {% block sidebar %}{% endblock %}
+        <br class="clear" />
+    </div>
+    <!-- END Content -->
+    <!-- END Container -->
+    {% block footer_script %}
+        <script type="text/javascript"  src="/static/js/jquery.message.js"></script>    
+    {% endblock %}
+    {% block footer %}<div id="footer">
+        <span ><a href="http://www.miibeian.gov.cn/" target="_blank">京ICP备15017611号</a></span>
+        <span>版权所有： 张继伟  邮箱：postmaster@map2family.com</span>
+    </div>{% endblock %}
+    
+</div>
+
+ 
+</body>
+</html>

@@ -1,0 +1,50 @@
+{% extends "admin/m_base_site.html" %}
+ {% block title %}主页{% endblock %} 
+  {% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script>  
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/notebook.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/m_hostpage.css" />
+{% endblock %}
+ {% block keywords%}心事 每日一句 推荐{%endblock%}
+  {% block description%} 你是不是也想要一个只属于自己的小屋，漂亮温馨就好，是不是可以换换小屋{的风格，把生活中最美好的东西村存在你的小屋，那么来吧，来map2family，ta已经为你准备好了一个小屋，只等你让ta变得更加美丽和温馨，放下吧，这里只有你知道...{%endblock%}
+ {% block coltype %}colM{% endblock %} 
+ {% block bodyclass %}{{ block.super }} 
+ app-{{ opts.app_label}} 
+ model-{{ opts.model_name }} 
+ change-form{% endblock %} 
+{% block content %}
+{% if not request.user.is_anonymous and not request.user.is_head_portrait %}
+<div><li class="li_upload_head_img"><i class="fa fa-circle fa-unupload-header"></i>  您还没有上传真实的头像，<a href="{% url 'user:portrait' %}">点击此处上传</a>...</li></div>
+
+{% endif %}
+<section class="notepaper">
+    <figure class="quote">
+      <blockquote class="curly-quotes" >
+        {{content|default:_('如果心情不好，那就早点睡吧 ... ')}}
+      </blockquote> 
+    </figure>
+    <br />
+     <div class="history">
+  <a href="{% url 'base:index_day_words' %}" >历史</a>
+</div>
+  </section>
+ 
+ {% endblock %}
+ {% block footer_script %}{{ block.super}}
+ <script>
+    $(document).ready(function() {
+   {% for user in user_list %}
+   {% if user != request.user %}
+       
+    {% endif%}    
+ {% endfor %}
+ $('.background_div').setBackgroundImg( 'url(/static/img/heartbeat1.JPG)'); 
+    });
+    
+ </script> 
+ {% endblock %}
+  {% block footer %} {% endblock %}

@@ -1,0 +1,54 @@
+{% extends "admin/m_base_site.html" %}
+ {% block title %}板块列表{% endblock %} 
+{% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script>  
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/notebook.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/m_hostpage.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="{% static "blocks/css/m_forum_block.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/m_brand.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/menu/m_styles.css" %}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static "blocks/css/m_menu.css" %}" />
+ 
+{% endblock %}
+ {% block keywords%}心事 每日一句 推荐{%endblock%}
+  {% block description%} 你是不是也想要一个只属于自己的小屋，漂亮温馨就..{%endblock%}
+ {% block bodyclass %}{{ block.super }} 
+{% endblock %}
+ {% block headertitle %}   
+ {% endblock %}  
+{% block content %}
+
+
+{% if request.user.is_administrator %}
+<div class="main_link_container">
+    <a class = "main_link_container_a" href = "{% url 'blocks:community_block_list' %}">
+        <i class="fa fa-building main_link_container_fa"></i><i class="fa fa-tasks main_link_container_fa"></i>
+        <label class="main_link_container_label">社区板块管理</label>
+        <i class="fa fa-angle-right"></i>
+    </a>
+     <hr>
+    <a class = "main_link_container_a" href = "{% url 'blocks:product_block_list' %}">
+        <i class="fa fa-cubes main_link_container_fa"></i><i class="fa fa-tasks main_link_container_fa"></i>
+        <label class="main_link_container_label">产品板块管理</label>
+        <i class="fa fa-angle-right"></i>
+    </a>
+   
+</div>
+<div class="group_list"> 
+<a href="{% url 'blocks:newblock' %}"> 
+        <p  class="blockname  blocknew" >新建板块<br/><label class="blacktheme">+</label></p>
+    </a> 
+</div>
+{% endif %}
+ {% endblock %}
+ 
+ {% block custom_footer_user_li_selected %}custom_footer_user_li_selected{% endblock %}
+ {% block custom_footer_user_div_selected %}custom_footer_user_div_selected{% endblock %}
+ 
+ {% block footer_script %}{{ block.super}}
+ <script src="/static/plugins/slides/jquery.slides.min.js"></script> 
+ {% endblock %} 

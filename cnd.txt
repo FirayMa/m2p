@@ -1,0 +1,3 @@
+http://lib.sinaapp.com/js/jquery/2.0.3/jquery-2.0.3.min.js
+http://lib.sinaapp.com/js/jquery/1.9.1/jquery-1.9.1.min.js
+http://code.jquery.com/jquery.js

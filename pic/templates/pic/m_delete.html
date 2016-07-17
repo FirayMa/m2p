@@ -1,0 +1,28 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}{{ page }}删除我的心情{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript"  src="/static/heartbeat/js/delete.js"></script> 
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_heartbeat.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_delete.css" />
+{% endblock %}
+{{% block page_header %}heartbeat{% endblock %}  
+{% block content %}
+		{% if heartbeat %} 
+		{% csrf_token %}
+			{% load tz %} 
+			<div class="detail"  >
+			<input type="hidden"  id="heartbeat_id" value="{{heartbeat.id}}" />
+			    <h3 class="title">{{ heartbeat.date  |date:" Y-m-d  H:i:s "}}</h3>
+    		    <label for="date" class="heartbeat_content" name="words" >{{ heartbeat.words }}</label>
+    		    <br />
+    		    <input type="button" class="left" id="delete" value="确认删除" /><input type="button" id="cancel" class="right" value="取消" />
+    		 </div>
+		 
+		{% endif %}
+{% endblock %}
+ {% block footer %}
+ {% endblock %}

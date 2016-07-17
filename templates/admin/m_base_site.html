@@ -1,0 +1,45 @@
+﻿{% extends "admin/m_base.html" %}
+{% block title %}{{ title }} | {{ site_title|default:_('还没有想好。。。') }}{% endblock %}
+{% block branding %}
+<h1 id="site-name"><img class="logo" src="/static/img/change.png" alt="logo"/><a href="{% url 'basedatas.views.index' %}"> 改变已经在路上...</a></h1>
+{% endblock %}
+
+{% block nav-global %}
+
+<div id="demo_box" class="wrapper">
+            <div class="pop_ctrl" id="id_pop_ctrl"><div class="portrait" id="id_user_portrait"><div class="portrait_intern"></div></div></div>
+            <ul id="demo_ul">
+                <li class="demo_li"><div><a href="/"><i class="fa fa-home fa-3x"></i><div  class="link_text">主页</div></a></div></li>
+                <li class="demo_li"><div><a href="{% url 'mailer:index_lastinfo' %}"><i class="fa fa-envelope fa-3x"></i><div class="link_text">邮件</div></a></div></li>
+                <li class="demo_li"><div><a href="{% url 'pic:index' %}"><i class="fa fa-picture-o fa-3x"></i><div class="link_text">图片</div></a></div>
+                <i class="fa fa-circle fa-reminder"></i>
+                </li> 
+                <li class="demo_li"><div><a href="{% url 'heartbeat:index' %}"><i class="fa fa-heartbeat fa-3x"></i><div class="link_text">心事</div></a></div></li> 
+               
+                <li class="demo_li"><div><a href="{% url 'user:list_users' %}"><i class="fa fa-users fa-3x"></i><div class="link_text">users</div></a></div></li>
+                <li class="demo_li"><div><a href="{% url 'bill:index' %}"><i class="fa fa-list-alt fa-3x"></i><div class="link_text">账单</div></a></div></li>
+                
+                <li class="demo_li"><div><a href="{% url 'base:applications' %}"><i class="fa fa-connectdevelop fa-3x"></i><div class="link_text">应用</div></a></div></li>
+                 <li class="demo_li"><div><a href="{% url 'base:new_day_words' %}"><i class="fa fa-th-large fa-3x"></i><div class="link_text">功能</div></a></div></li>
+   
+                <li class="demo_li"><div><a href="{% url 'msg:index' %}"><i class="fa fa-comments-o fa-3x"></i><div class="link_text">消息</div></a></div>
+                 {% if not request.user.is_anonymous and request.user.msg_mark %}
+                <i class="fa fa-circle fa-reminder"></i>
+                {% endif %}
+                </li>
+              
+                <li class="demo_li"><div><a href="{% url 'user:portrait' %}"><i class="fa fa-cog fa-3x"></i><div class="link_text">设置</div></a></div>
+                {% if not request.user.is_anonymous and not request.user.is_head_portrait %}
+                <i class="fa fa-circle fa-reminder"></i>
+                {% endif %}
+                </li> 
+                <li class="demo_li"><div><a href="{% url 'base:contact_us' %}"><i class="fa fa-phone-square  fa-3x"></i><div class="link_text">支持</div></a></div></li>
+                {% if user and not user.is_anonymous and user.is_authenticated %}
+                <li class="demo_li"><div><a href="{% url 'logout' %}"><i class="fa fa-power-off fa-3x"></i><div class="link_text">退出</div></a></div></li>
+                {% else %}
+                <li class="demo_li"><div><a href="{% url 'login' %}"><i class="fa fa-sign-in fa-3x"></i><div class="link_text">登录</div></a></div></li>
+                {% endif %}
+                <p class="demo_li_username">Hi {{request.user.get_full_name}} Welcome.</p>
+            </ul>
+</div>
+{% endblock %}

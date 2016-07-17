@@ -1,0 +1,53 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %} 待发信件{% endblock %}
+{% block extrahead %}{{ block.super }}
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/mailer/css/m_mailer.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/mailer/css/m_index.css" />
+{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<div class="main_div">
+ {% if lastinfo_list %}
+			{% csrf_token %}
+			{% load tz %}
+			{% for lastinfo in lastinfo_list %}
+<div class="detail"  >
+	      
+	    <h3 class="title">{{ lastinfo.title }} <br /><label class="date">{{ lastinfo.date  |date:" Y-m-d  H:i:s "}}</label>
+        {% if lastinfo.is_sent = '1'%}已发送{% else %}剩余天数:<label class="date">{{ lastinfo.days }}{% endif %}</label>
+        <a method="get" class="delete" href="{% url 'mailer:change_lastinfo' lastinfo.id %}">
+            <i class="fa fa-pencil-square-o fa-3x"></i>
+            </a>
+        </h3>
+        
+	    <div class="heartbeat_content" name="words" >{{ lastinfo.mgs |safe|escape}} </div>  
+	 </div>
+	 {% endfor %}
+		{% else %}
+    		<div class="detail"  >
+	  
+	    <h3 class="title">  </h3>
+	    <div class="heartbeat_content" name="words" >Hi,<br/>我们永远不知道明天和意外哪个先来，留下的那个永远是最伤心的，在这里写下那些你想对他们说的，你写下的内容将由系统在你指定的时间进行发送，发送人为postmaster@map2family.com<br />在这里写下你想对他们说的话，告诉他们他们应该知道的一些事情...</div>
+		
+	 </div>
+	 <a class="nor_user_a" method="get" href="{% url 'mailer:new_lastinfo'  %}"><i class="fa fa-pencil-square-o fa-3x nor_user"></i></a>  
+		{% endif %}
+</div>
+
+{% endblock %}
+
+{% block custom_footer_menu %}
+{% if lastinfo_list %} {{block.super}} 
+<div id="sub_menu_footer"> 
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'mailer:new_tofuture'  %}"><i class="fa fa-pencil-square-o sub_menu_list_i"></i><div class="sub_link_text">写慢邮</div></a></div>	 
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'mailer:index_tofuture' %}"><i class="fa fa-list-ol sub_menu_list_i"></i><div class="sub_link_text">慢邮草稿箱</div></a></div>
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'mailer:new_lastinfo' %}"><i class="fa fa-pencil-square-o sub_menu_list_i"></i><div class="sub_link_text">写清单</div></a></div>	 	 		   
+</div>
+ {% endif %}
+ {% endblock %}
+ {% block footer %}{% if not lastinfo_list %}  {{block.super}} {% endif %}
+ {% endblock %}

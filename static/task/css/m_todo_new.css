@@ -1,0 +1,40 @@
+#id_title
+{ 
+    width: 98%;
+}
+
+.helptext
+{
+    font-size: 2em;
+    color:red;
+    line-height: 30px;
+    background-color: lightgray;
+}
+table
+{
+    width:100%;
+    display: block;
+}
+input[type="submit"]
+{
+    margin-top: 8%;
+    width:100%;
+    text-align: center;
+}
+#id_description
+{
+   width:98%;
+   height:150px;    
+} 
+
+th{
+    padding-top: 30px;
+    width:20%;
+}
+.messagelist
+{
+    width:99%;
+    
+    height:10px;
+    
+}

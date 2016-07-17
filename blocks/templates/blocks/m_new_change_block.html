@@ -1,0 +1,45 @@
+{% extends "admin/m_base_site.html" %}
+{% load i18n admin_static %}
+{% block title %}板块管理{% endblock %}
+{% block extrahead %}{{ block.super }}
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ <link rel="stylesheet" href="{% static "blocks/css/m_new_change.css" %}"/>
+{% endblock %}
+{% block branding %}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="id_user_form"  action=""  method="POST" enctype="multipart/form-data">
+  
+ {% if saved %}
+               <ul class="messagelist">
+                    <li class="text-success" >已保存。</li>
+               </ul>
+{% endif %} 
+ {% if not perm %}
+<div>
+  <label class="errornote" >你没权限做这件事情。</label>
+</div>
+ {% else %}
+    {% if not validate %}
+    <div>
+        <label class="errornote" >请输入必要的信息。</label>
+    </div>
+    {% endif %}
+        {% csrf_token %} 
+            {{ form }}  
+    <input type="submit" class="save" value="保存" />
+    
+ {% endif %}
+</form>
+{% endblock %}
+  {% block custom_footer_menu %}
+{{block.super}} 
+ <div id="sub_menu_footer"> 
+{% include "admin_user/submenu.html"%}
+</div>
+ {% endblock %} 

@@ -1,0 +1,40 @@
+{% extends "admin/m_base_site.html" %}
+{% load i18n admin_static %}
+{% block title %}新任务{% endblock %}
+{% block extrahead %}{{ block.super }} 
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ <link rel="stylesheet" href="{% static "task/css/m_todo_new.css" %}"/>
+{% endblock %}
+{% block branding %}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="id_user_form"  action=""  method="POST" enctype="multipart/form-data">
+{% if not validate %}
+<div>
+  <label class="errornote" >请输入新任务名称和描述。或者你没权限！</label>
+</div>
+{% else%}
+    {% csrf_token %} 
+        {{ form.as_ul }}
+   {% if saved %}
+   <ul class="messagelist">
+  <li class="text-success" >已保存</li>
+</ul>
+   {% endif %}
+   <input type="submit" value="保存" />
+   {% endif%}
+</form>
+{% endblock %}
+ {% block custom_footer_menu %}
+
+{{block.super}} 
+ <div id="sub_menu_footer"> 
+{% include "admin_user/submenu.html"%}
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'task:todolist' %}"><i class="fa fa-list sub_menu_list_i"></i><div class="sub_link_text">TODO List</div></a></div>
+ </div>
+ {% endblock %}
+{% block footer %}{% endblock %}

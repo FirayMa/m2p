@@ -1,0 +1,52 @@
+{% extends "admin/m_base_site.html" %}
+ {% block title %}虚拟币记录{% endblock %} 
+{% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript"  src="{% static 'js/common.js' %}"></script>  
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/notebook.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/css/m_hostpage.css" /> 
+<link rel="stylesheet" type="text/css" media="screen" href="{% static "css/m_forum_block.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/m_brand.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "log/css/m_list.css" %}" />
+{% endblock %}
+ {% block keywords%}心事 每日一句 推荐{%endblock%}
+  {% block description%} 你是不是也想要一个只属于自己的小屋，漂亮温馨就..{%endblock%}
+ {% block bodyclass %}{{ block.super }} 
+{% endblock %}
+ {% block headertitle %}   
+ {% endblock %}  
+{% block content %}
+
+<div class="main_link_container">
+    {% if vmoneyls %}
+    {% load tz %}
+{% for vmlog in vmoneyls %} 
+    <div class = "main_link_container_a">
+     <ul> <li class="vmlog_date"> {{vmlog.time  | date:" Y-m-d H:i:s"}}  </li>
+         </ul> 
+        <label class="main_link_container_label"> {{vmlog.desc}}</label>
+        <i class="angle-right">{% if vmlog.type == 1 %}+{%else%}-{%endif%}{{vmlog.num}} </i>  <i class="fa fa-jpy main_link_container_fa"></i>
+    </div>
+     <hr>
+{% endfor %}
+{% else %}
+<div class = "main_link_container_a" >
+     <ul> <li class="vmlog_date">  </li>
+         </ul> 
+        <label class="main_link_container_label main_link_container_label_none"> 没找到任何仓库币增加或消费记录</label>
+        <i class="angle-right"></i>  <i class="fa fa-jpy main_link_container_fa">0</i>
+    </div>
+     <hr>
+{% endif %}
+</div>
+ {% endblock %}
+ 
+ {% block custom_footer_user_li_selected %}custom_footer_user_li_selected{% endblock %}
+ {% block custom_footer_user_div_selected %}custom_footer_user_div_selected{% endblock %}
+ 
+ {% block footer_script %}{{ block.super}}
+ <script src="/static/plugins/slides/jquery.slides.min.js"></script> 
+ {% endblock %} 

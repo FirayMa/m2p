@@ -1,0 +1,16 @@
+.div_fix,.div_problem,.div_comment,.div_uploadnewfile,.div_addTicket,.div_approval,.div_workflow
+{
+    background: #F0F1F8;
+    padding: 15px;
+    -moz-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    -webkit-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+}
+
+.div_fix strong,.div_problem strong, .div_comment strong, .div_uploadnewfile strong, .div_addTicket strong, .div_approval strong, .div_workflow strong
+{
+   bold:true;
+   font-size:30px;
+   font-style:oblique;
+   color: #4682B4;
+}

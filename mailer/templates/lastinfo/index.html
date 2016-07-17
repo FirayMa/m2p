@@ -1,0 +1,60 @@
+{% extends "admin/base_site.html" %}
+{% block title %} 待发信件{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" language="javascript" src="/static/js/datatable/jquery.dataTables.min.js"></script>
+<script type="text/javascript" language="javascript" src="/static/js/datatable/dataTables.jqueryui.js"></script>
+<script type="text/javascript" language="javascript" src="/static/bill/js/jquery-table.js"></script>
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ 
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/jquery.dataTables.css" />
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/dataTables.jqueryui.css" />
+<link rel="stylesheet" type="text/css" media="screen"  href="/static/css/datatable/dataTables.extend.css" />
+{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="problem_search_form" action="" method="get">
+ 
+<table width="100%" class="display" id="data-table-list" cellspacing="0" >
+<thead>
+	<tr>
+		
+		<th>标题</th>
+		<th>提交时间</th>
+		<th>剩余时间</th>
+		<th>修改</th> 
+	</tr>
+</thead>
+<tfoot>
+	<tr>
+		 
+		<th>标题</th>
+		<th>提交时间</th>
+		<th>剩余时间</th>
+		<th>修改</th>
+	</tr>
+</tfoot>
+<tbody>
+		{% if lastinfo_list %}
+			{% csrf_token %}
+			{% load tz %}
+			{% for lastinfo in lastinfo_list %}
+		<tr >
+    		<td>
+    			<label for="date" name="title" ><a method="get" href="{% url 'mailer:detail_lastinfo' lastinfo.id %}">{{ lastinfo.title }}</a></lable>
+    			</td>
+    		 <td ><label for="date">{{ lastinfo.date  |date:" Y-m-d H:i:s"}}</lable></td>
+    		<td >{{ lastinfo.days }}</td>
+    		<td ><label for="date" name="title" ><a method="get" href="{% url 'mailer:change_lastinfo' lastinfo.id %}">修改</a></lable></td>
+    		
+		</tr>
+		{% endfor %}
+		{% else %}
+    		<p>No bills are available.</p>
+		{% endif %}
+		</tbody>
+</table>
+</form>
+{% endblock %}

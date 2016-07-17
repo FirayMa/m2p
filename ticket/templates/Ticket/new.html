@@ -1,0 +1,35 @@
+{% extends "admin/base_site.html" %}
+{% block title %}{{ page }} Problem| {{ site_title|default:_('L2 tools management') }}{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" language="javascript" src="/static/js/OpenTicket-jquery.js"></script>
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="ticket_form" action="" method="POST">
+    {% csrf_token %}
+        <table>
+           <tr>
+               <td> 
+                    {% if form %}
+                        {{form}}
+                    {% endif%}
+               </td>
+               <td colspan=2>
+                    <input type="button" id="id_submitTicket" value="保存" /> 
+                     {% if has_permission %}
+                            <label for="id_checkbox" >Finished?:</lable>
+                            {% if ticket.isFinished == "1"%}
+                            <input type="checkbox" id="id_checkbox" checked name="Finished_Confirm"  />
+                            {% else %}
+                            <input type="checkbox" id="id_checkbox" name="Finished_Confirm"  />
+                            {% endif %}
+                     {% endif %}
+               </td>
+           </tr>
+        </table>
+        <input type="Hidden" id="ticket_id" name="ticketid" value="{{ticket_id}}"/> 
+        <input type="Hidden" id="page_id" name="page" value="{{page}}"/> 
+</form>
+{% endblock %}

@@ -1,0 +1,43 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}{{ page }} 图片{% endblock %}
+{% block extrahead %}{{ block.super }}
+{{ media }}
+<script src="/static/pic/js/modernizr.custom.js"></script>
+<script type="text/javascript">
+            var _gaq = _gaq || [];
+            _gaq.push(['_setAccount', 'UA-7243260-2']);
+            _gaq.push(['_trackPageview']);
+            (function () {
+                var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+                ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+                var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+            })();
+		</script>
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }} 
+<link rel="stylesheet" type="text/css"href="/static/pic/css/normalize.css"  />
+<link rel="stylesheet" type="text/css" href="/static/pic/css/demo.css" />
+<link rel="stylesheet" type="text/css" href="/static/pic/css/m_component.css" />
+{% endblock %}
+
+{% block content %}
+<div class="container">
+			<!-- Top Navigation -->
+			 
+			<ul id="elasticstack" class="elasticstack">
+			<li><img class="animation_pic" id="l2_img_1" src="" alt="01"/><h5>Beautiful Girl 小可</h5></li>
+			<li><img class="animation_pic" id="l2_img_2" src="" alt="01"/><h5>Beautiful Girl 小可</h5></li>
+				 
+				<li><div class="overlay"></div><img  id="l2_img_3" class="animation_pic" src=" " alt="02"/><h5>Beautiful Girl 小可</h5></li>
+				<li><img class="animation_pic" id="l2_img_5" src=" " alt="03"/><h5>Beautiful Girl 小可</h5></li> 
+				<li><img class="animation_pic" id="l2_img_6" src=" " alt="03"/><h5>Coming soon...</h5></li>
+			</ul>
+</div><!-- /container --> 
+ 
+{% endblock %}
+ {% block footer %}
+         <script src="/static/pic/js/draggabilly.pkgd.min.js"></script>
+		<script src="/static/pic/js/elastiStack.js"></script>
+		<script src="/static/pic/js/pic_index.js"></script>
+ {% endblock %}

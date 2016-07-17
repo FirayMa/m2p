@@ -1,0 +1,61 @@
+{% extends "admin/base_site.html" %}
+{% block title %} 写我的最后一封信 {% endblock %}
+{% block keywords%}写我的最后一封信{%endblock%}
+{% block description%}总有一天我们会离开这个世界，有些时候我们预料到了，有些时候我们突然就走了。留下的永远比走了的更加痛苦，告诉他们你想对他们说的，从这儿开始.{%endblock%}
+{% block extrahead %}{{ block.super }}
+{% load staticfiles %}
+<script type="text/javascript" language="javascript" src="{% static 'js/jQuery-TE/jquery-te-1.4.0.min.js'%}"></script>
+<script type="text/javascript" language="javascript" src="{% static 'js/numeric/jquery.numeric.min.js'%}" charset="utf-8"></script>
+<script type="text/javascript" language="javascript" src="{% static 'mailer/js/text_pl.js'%}" charset="utf-8"></script>
+<script type="text/javascript" language="javascript" src="{% static 'mailer/js/action-jquery_tofuture.js'%}" charset="utf-8"></script>
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'js/jQuery-TE/jquery-te-1.4.0.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'js/jQuery-TE/jquery-te-green.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'mailer/css/lastinfo_new.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'mailer/css/tag.css'%}" />
+
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+ 
+<form id="lastinfo_form" action="" method="POST">
+    {% csrf_token %}
+    <table>
+   
+    <tr>
+    <td><div class="div_err_1">
+              
+        </div></td>
+    </tr>
+    <tr>
+        <td><label  class="col_1" for="id_title">电子邮件将显示的标题：</label><input type="text" id="id_title" name="title" class="title" value="{{tofuture_instance.title}}" /> 
+        </td>
+     
+        <td><label>在</label><input type="text" id="id_years" name="years" value="{{tofuture_instance.years|default:2}}" class="positive-integer" /> 
+         <label>年后发送此邮件给我</label></td>
+    </tr>
+    <tr>
+    <td><div class="div_err_2">
+              
+        </div></td>
+        <td><div class="div_err_3">
+              
+        </div></td>
+    </tr>
+    </table>  
+    <div class="div_err_4"> 
+        </div>
+        <textarea class="jqte" name="text" id="id_content">{{tofuture_instance.mgs}}</textarea>
+        <br />
+        <div class="div_err_5"> 
+        </div>
+        <input type="button" id="id_save" name="save" value="提交信件至服务器发送队列" /> 
+ 
+         <input type="hidden" id="id_page"   value="{{page}}" /> 
+         <input type="hidden" id="lastinfo_id"   value="{{tofuture_instance.id}}" /> 
+</form>
+ 
+{% endblock %}

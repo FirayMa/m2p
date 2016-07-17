@@ -1,0 +1,57 @@
+{% extends "admin/m_base_site.html" %}
+{% load admin_static %}
+{% block title %}{{ page }} Ticket 列表| {{ site_title|default:_('') }}{% endblock %}
+{% block extrahead %}{{ block.super }}
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'basedata/css/m_daywords_comm.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'basedata/css/m_daywords_index.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'good/css/comm.css'%}" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/m_background_div.css'%}" />
+
+{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+
+		{% if ticket_list %}
+			{% csrf_token %}
+            {% load tz %}
+			{% for ticket in ticket_list %}
+		 <div class="detail"  > 
+	    <h3 class="title"><label  class="title date">{{ ticket.createDate_date  |date:" Y-m-d  H:i:s "}}</label >
+        <label  class="title username">{{ ticket.title }}</label >
+        {% if ticket.isFinished == "1"%}
+    		    <img src="/static/ticket/img/icon-yes.gif" alt="Finished" />
+                {% else %}
+                <img src="/static/ticket/img/icon-no.gif" alt="Not finished" />
+            {% endif %}
+        </h3>
+	    <label for="date" class="heartbeat_content" name="words" >{{ ticket.comments }}</label>
+        
+		<hr />
+		{% if has_permission %}
+    		<td>
+    			<label for="date" name="title" ><a method="get" href="{% url 'ticket:change' ticket.id %}">修改</a></lable>
+    	    </td>
+    	    {% endif %}
+	 </div>
+     	 
+		{% endfor %}
+		
+		{% endif %}
+
+{% if ticket_list.counter %}
+		<strong>Total:{{ ticket_list.counter  }} Tickets, Finished: {{ finished_num }} </strong>
+{% endif %}
+<div>
+<div id="sub_menu_footer"> 
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'ticket:openTicket'  %}"><i class="fa fa-paperclip sub_menu_list_i"></i><div class="sub_link_text">开Ticket</div></a></div>
+ 	 		   
+</div>
+{% endblock %}
+
+
+{% block footer %}{% endblock %}

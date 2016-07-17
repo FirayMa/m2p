@@ -1,0 +1,35 @@
+.to_do_list strong
+{
+   font-weight:bold;
+   font-size:30px;
+   font-style:oblique;
+   color: #4682B4;
+   margin-left:10px;
+}
+.wrap_todolist
+{
+    width:200px;
+    height:150px;
+    background: #FFFACD;
+    box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    -moz-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    -webkit-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+}
+.to_do_list
+{
+	margin-top:10px;
+    background: #FFFACD;
+    padding: 20px 20px;
+}
+ 
+.to_do_list table{
+	margin-left:40px;
+}
+
+table thead
+{
+    background: #DCDCDC;
+    font-weight:bold;
+    font-style: italic;
+}
+

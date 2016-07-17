@@ -1,0 +1,15 @@
+ 
+#id_comments, #id_title, #id_submitTicket 
+{
+    width:98%;
+} 
+
+td, th
+{
+    border-bottom: none;
+}
+
+#ticket_form
+{
+    margin-bottom: 60px;
+}

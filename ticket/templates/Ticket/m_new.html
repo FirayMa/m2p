@@ -1,0 +1,58 @@
+{% extends "admin/m_base_site.html" %}
+{% load admin_static %}
+{% block title %}{{ page }} 开Ticket| {{ site_title|default:_('') }}{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript" language="javascript" src="/static/js/OpenTicket-jquery.js"></script>
+{{ media }}
+{% endblock %}
+
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'ticket/css/m_new.css'%}" />
+{% endblock %} 
+
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+{% block content %}
+<form id="ticket_form" action="" method="POST">
+    {% csrf_token %}
+        <table>
+           <tr>
+               <td> 
+                    {% if form %}
+                        {{form}}
+                    {% endif%}
+               </td>
+               <td >
+                   
+                     {% if has_permission %}
+                            <label for="id_checkbox" >Finished?:</lable>
+                            {% if ticket.isFinished == "1"%}
+                            <input type="checkbox" id="id_checkbox" checked name="Finished_Confirm"  />
+                            {% else %}
+                            <input type="checkbox" id="id_checkbox" name="Finished_Confirm"  />
+                            {% endif %}
+                     {% endif %}
+               </td>
+               
+           </tr>
+           <tr>
+               <td colspan=2>
+                    <input type="button" id="id_submitTicket" value="保存" /> 
+              </td>
+           </tr>
+        </table>
+        <input type="Hidden" id="ticket_id" name="ticketid" value="{{ticket_id}}"/> 
+        <input type="Hidden" id="page_id" name="page" value="{{page}}"/> 
+</form>
+
+<div id="sub_menu_footer"> 
+{% if page = "change" %}
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'ticket:openTicket'  %}"><i class="fa fa-sitemap sub_menu_list_i"></i><div class="sub_link_text">开Ticket</div></a></div>
+{% endif %} 	
+<div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'ticket:index' %}"><i class="fa fa-list sub_menu_list_i"></i><div class="sub_link_text">ticket列表</div></a></div>
+ 	 		   
+</div>
+
+{% endblock %}
+
+{% block footer %}{% endblock %}

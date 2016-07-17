@@ -1,0 +1,51 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}{{ page }} 我的心情{% endblock %}
+{% load admin_static %}
+{% block extrahead %} {{ block.super }} 
+<script type="text/javascript" language="javascript" src="{% static 'js/m_background_div.js'%}"></script>
+{{ media }}
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_heartbeat.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="/static/heartbeat/css/m_index.css" />
+<link rel="stylesheet" type="text/css" media="screen" href="{% static 'css/m_background_div.css'%}" />
+{% endblock %}
+{% block content %}
+<div class="background_div"> 
+</div>
+	<div  class="main_div">
+		{% if heartbeat_list %}
+			{% load tz %}
+			{% for heartbeat in heartbeat_list %} 
+				<div class="detail"  >
+					<a method="get" class="delete" href="{% url 'heartbeat:confirm_delete' heartbeat.id %}">
+						<i class="fa fa-times-circle fa-2x"></i>
+					</a>  
+					<h3 class="title"><label class="date">{{ heartbeat.date  |date:" Y-m-d  H:i:s "}}</lable></h3>
+					<label for="date" class="heartbeat_content" name="words" >{{ heartbeat.words }}</lable>  
+				</div>
+		{% endfor %}
+		{% else %}
+			 <div class="heattbeat_empty_div"  >
+					<h3 class="title">2020-12-12 13:20:57</h3>
+					<label for="date" class="heartbeat_content empty_heartbeat_content" name="words" >在这里写下你只想说给自己听的心事……</lable>  
+					<a class="nor_user_a" method="get" href="{% url 'heartbeat:new'  %}"><br/><i class="fa fa-pencil-square-o fa-3x nor_user"></i></a> 
+			 </div>
+		{% endif %} 
+	</div>
+
+{% endblock %}
+
+
+{% block custom_footer_menu %}
+{% if heartbeat_list %} {{block.super}} 
+<div id="sub_menu_footer">  
+ <div class="sub_menu_list_div"><a class="sub_menu_list_a" href="{% url 'heartbeat:new'%}"><i class="fa fa-pencil-square-o sub_menu_list_i"></i><div class="sub_link_text">写心事</div></a></div> 
+</div>
+ {% endif %}
+ {% endblock %}
+
+ 
+ {% block footer %}{% if not heartbeat_list %}  {{block.super}} {% endif %}
+ {% endblock %}

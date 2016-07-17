@@ -1,0 +1,41 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}退出登录{% endblock %} 
+{% load i18n admin_static %}
+{% block extrahead %}{{ block.super }}
+
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+<link rel="stylesheet" type="text/css" href="{% static "css/m_brand.css" %}" />
+<link rel="stylesheet" type="text/css" href="{% static "css/m_logout.css" %}" />
+{% endblock %}
+
+{% block bodyclass %}{{ block.super }} login{% endblock %}
+
+{% block nav-global %}
+<div class="form_logo">
+   <a class="host_logo" href="/"><i class="fa fa-home "></i></a><label >map2family</label> 
+</div>
+{% endblock %}
+
+{% block content_title %}{% endblock %}
+
+{% block breadcrumbs %}
+
+{% endblock %}
+{% block unlogin %} {% endblock %}
+{% block content %}
+<div id="content-main "> 
+  <div class="div_logout_message">
+    <label  class="logout_message">{% trans '您已退出，感谢您停留在本站的宝贵时间...' %}</label>
+  </div >  
+   <div class="div_logout" >
+   <a method="post" class="a_logout" href="{% url 'login'%}">{% trans '重新登录' %}<br /><i class="fa fa-sign-in fa-5x"></i></a>
+   </div>
+ 
+</div>
+ <script>
+     $('body').css("background-image", "url(/static/img/logout1.jpg)");
+ </script>
+{% endblock %}
+

@@ -1,0 +1,28 @@
+{% extends "admin/m_base_site.html" %}
+{% block title %}上传个人头像{% endblock %}
+{% block extrahead %}{{ block.super }}
+<script type="text/javascript"  src="/static/admin/js/upload_portrait.js"></script> 
+{{ media }}
+{% endblock %}
+{% block extrastyle %}{{ block.super }}
+ <link rel="stylesheet" href="/static/admin/css/m_change_portrait.css"/>
+{% endblock %}
+{% block coltype %}colM{% endblock %}
+{% block bodyclass %}{{ block.super }} app-{{ opts.app_label }} model-{{ opts.model_name }} change-form{% endblock %}
+
+{% block content %}
+<form id="id_user_form"  action=""  method="POST" enctype="multipart/form-data">
+    <ul class="upload_portrait">
+    {% csrf_token %}
+    <label class="new_Btn">
+        {{ form }}
+        <div class="pop_ctrl pop_ctrl_upload"><div class="portrait portrait_upload" id="id_portrait_upload" ></div></div> </label>
+        <li ><textarea type="text"   class="upload_portrait_bnt" value=" " > </textarea></li>
+        <li ><input type="button" id="i_upload" class="upload_portrait_bnt" value="点击选择图片" /> </li>
+        <li><input type="hidden" id="mark" name="mark" value="0" /></li>
+    </ul>
+    <div class="div_err">
+        </div>
+</form>
+{% endblock %}
+{% block footer %}{% endblock %}

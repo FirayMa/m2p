@@ -1,0 +1,16 @@
+.fix_list,.div_comment,.div_workflow,.div_problem
+{
+    background: #F0F1F8;
+    padding: 15px;
+    -moz-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    -webkit-box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+    box-shadow:  -2px 0px 10px 2px rgb(188, 179, 179), 0px 0px 0px 0px rgb(128,128,128);
+}
+
+.fix_list strong, .div_comment strong, .div_workflow strong, .div_problem strong
+{
+   bold:true;
+   font-size:30px;
+   font-style:oblique;
+   color: #4682B4;
+}
